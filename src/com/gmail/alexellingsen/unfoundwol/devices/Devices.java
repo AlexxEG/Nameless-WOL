@@ -26,15 +26,6 @@ public class Devices {
 
     private static DatabaseHandler _db;
 
-    /**
-     * Initializes DatabaseHandler, most be called before using class.
-     *
-     * @param context The Context to use.
-     */
-    public static void init(Context context) {
-        _db = new DatabaseHandler(context);
-    }
-
     public static int add(Device device) {
         SQLiteDatabase db = _db.getWritableDatabase();
 
@@ -49,6 +40,41 @@ public class Devices {
         db.close();
 
         return id;
+    }
+
+    public static void delete(Device device) {
+        SQLiteDatabase db = _db.getWritableDatabase();
+        db.delete(TABLE_NAME, KEY_ID + " = ?",
+                new String[]{String.valueOf(device.getID())});
+        db.close();
+    }
+
+    public static Device find(String name) {
+        SQLiteDatabase db = _db.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME, new String[]{KEY_ID, KEY_NAME, KEY_HOST, KEY_PORT, KEY_MAC},
+                KEY_NAME + " = ?",
+                new String[]{name}, null, null, null, null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        // No device found?
+        if (cursor == null)
+            return null;
+
+        Device device = new Device(
+                cursor.getString(1),
+                cursor.getString(2),
+                cursor.getInt(3),
+                cursor.getString(4)
+        );
+        device.setID(cursor.getInt(0));
+
+        cursor.close();
+        db.close();
+
+        return device;
     }
 
     public static Device get(int id) {
@@ -119,32 +145,13 @@ public class Devices {
         return count;
     }
 
-    public static Device find(String name) {
-        SQLiteDatabase db = _db.getReadableDatabase();
-
-        Cursor cursor = db.query(TABLE_NAME, new String[]{KEY_ID, KEY_NAME, KEY_HOST, KEY_PORT, KEY_MAC},
-                KEY_NAME + " = ?",
-                new String[]{name}, null, null, null, null);
-
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        // No device found?
-        if (cursor == null)
-            return null;
-
-        Device device = new Device(
-                cursor.getString(1),
-                cursor.getString(2),
-                cursor.getInt(3),
-                cursor.getString(4)
-        );
-        device.setID(cursor.getInt(0));
-
-        cursor.close();
-        db.close();
-
-        return device;
+    /**
+     * Initializes DatabaseHandler, most be called before using class.
+     *
+     * @param context The Context to use.
+     */
+    public static void init(Context context) {
+        _db = new DatabaseHandler(context);
     }
 
     public static int update(Device device) {
@@ -162,13 +169,6 @@ public class Devices {
         db.close();
 
         return rows;
-    }
-
-    public static void delete(Device device) {
-        SQLiteDatabase db = _db.getWritableDatabase();
-        db.delete(TABLE_NAME, KEY_ID + " = ?",
-                new String[]{String.valueOf(device.getID())});
-        db.close();
     }
 
 }
