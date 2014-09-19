@@ -12,15 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.gmail.alexellingsen.unfoundwol.LazyAdapter;
 import com.gmail.alexellingsen.unfoundwol.R;
-import com.gmail.alexellingsen.unfoundwol.Settings;
 import com.gmail.alexellingsen.unfoundwol.devices.Devices;
 
 public class ShortcutActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(Settings.getThemeID(this));
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shortcut);
 

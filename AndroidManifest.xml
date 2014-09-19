@@ -14,7 +14,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.Light.DarkActionBar">
         <activity
             android:name="com.gmail.alexellingsen.unfoundwol.activities.MainActivity"
             android:label="@string/app_name">
@@ -24,9 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.gmail.alexellingsen.unfoundwol.activities.PrefsActivity"
-            android:theme="@style/AppTheme" />
+        <activity android:name="com.gmail.alexellingsen.unfoundwol.activities.PrefsActivity" />
         <activity
             android:name="com.gmail.alexellingsen.unfoundwol.activities.ShortcutActivity"
             android:label="WOL Shortcut"

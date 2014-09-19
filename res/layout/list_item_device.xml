@@ -2,12 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:padding="@dimen/list_item_device_padding"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/list_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="2dip"
         android:text="@+id/list_item_name"
         android:textSize="20sp" />
 
@@ -15,14 +17,12 @@
         android:id="@+id/list_item_host_port"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
         android:text="@+id/list_item_name" />
 
     <TextView
         android:id="@+id/list_item_mac"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
         android:text="@+id/list_item_name" />
 
 </LinearLayout>
