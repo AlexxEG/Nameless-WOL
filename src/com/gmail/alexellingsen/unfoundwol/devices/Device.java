@@ -2,7 +2,7 @@ package com.gmail.alexellingsen.unfoundwol.devices;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import com.gmail.alexellingsen.unfoundwol.Common;
+import com.gmail.alexellingsen.unfoundwol.utils.Common;
 import com.gmail.alexellingsen.unfoundwol.ValidateUtils;
 
 import java.net.*;
@@ -25,7 +25,7 @@ public class Device {
     }
 
     public boolean canWake() {
-        if (_host.isEmpty() || _mac.isEmpty() || ValidateUtils.validatePort(_port))
+        if (_host.isEmpty() || _mac.isEmpty() || !ValidateUtils.validatePort(_port))
             return false;
 
         boolean validHost;

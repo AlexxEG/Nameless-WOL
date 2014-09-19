@@ -1,4 +1,4 @@
-package com.gmail.alexellingsen.unfoundwol;
+package com.gmail.alexellingsen.unfoundwol.utils;
 
 public class Common {
 
