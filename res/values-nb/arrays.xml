@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="pref_themes">
+        <item>Dark</item>
+        <item>Light</item>
+        <item>Dark Action Bar</item>
+    </string-array>
+    <string-array name="pref_themes_values">
+        <item>dark</item>
+        <item>light</item>
+        <item>darkactionbar</item>
+    </string-array>
+
+</resources>

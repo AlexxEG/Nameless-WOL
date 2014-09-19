@@ -1,0 +1,48 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <style name="AppBaseTheme.Light" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <style name="AppBaseTheme.Light.DarkActionBar" parent="android:Theme.Holo.Light.DarkActionBar">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- All customizations that are NOT specific to a particular API-level can go below. -->
+
+    <style name="AppTheme" parent="AppBaseTheme">
+        <item name="ic_action_settings">@drawable/ic_action_settings</item>
+        <item name="ic_action_content_new">@drawable/ic_action_content_new</item>
+    </style>
+
+    <style name="AppTheme.Light" parent="AppBaseTheme.Light">
+        <item name="ic_action_settings">@drawable/ic_action_settings_light</item>
+        <item name="ic_action_content_new">@drawable/ic_action_content_new_light</item>
+    </style>
+
+    <style name="AppTheme.Light.DarkActionBar" parent="AppBaseTheme.Light.DarkActionBar">
+        <item name="ic_action_settings">@drawable/ic_action_settings</item>
+        <item name="ic_action_content_new">@drawable/ic_action_content_new</item>
+    </style>
+
+</resources>

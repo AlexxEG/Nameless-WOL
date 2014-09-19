@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="add">Add</string>
+    <string name="app_name">UnFound WOL</string>
+    <string name="appearance">Appearance</string>
+    <string name="cancel">Cancel</string>
+    <string name="empty">Empty</string>
+    <string name="magic_packet_failed">Failed to send magic packet to \'%1$s\'</string>
+    <string name="magic_packet_sending">Sending magic packet to \'%1$s\'</string>
+    <string name="device_exists">Device \'%1$s\' already exists.</string>
+    <string name="device_info_error">\'%1$s\' has incorrect or missing information</string>
+    <string name="device_missing_name">Device needs a name</string>
+    <string name="device_not_found">Didn\'t find device \'%1$s\'</string>
+    <string name="devices_none">No devices</string>
+    <string name="pref_theme">Select Theme</string>
+    <string name="pref_theme_summary">You must restart the app after changing.</string>
+    <string name="save">Save</string>
+    <string name="shortcut_created">Shortcut created for \'%1$s\'</string>
+    <!-- Actions -->
+    <string name="action_edit">Edit</string>
+    <string name="action_remove">Remove</string>
+    <string name="action_settings">Settings</string>
+    <!-- Dialog Strings -->
+    <string name="dialog_host">Host</string>
+    <string name="dialog_mac">MAC Address</string>
+    <string name="dialog_name">Name</string>
+    <string name="dialog_port">Port</string>
+    <string name="ZeroZero">00</string>
+
+</resources>

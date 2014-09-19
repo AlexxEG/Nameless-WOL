@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="add">Legg til</string>
+    <string name="app_name">UnFound WOL</string>
+    <string name="appearance">Utseende</string>
+    <string name="cancel">Avbryt</string>
+    <string name="empty">Tomt</string>
+    <string name="magic_packet_failed">Klarte ikke å sende Magic Packet til \'%1$s\'</string>
+    <string name="magic_packet_sending">Sender Magic Packet til \'%1$s\'</string>
+    <string name="device_exists">Enheten \'%1$s\' finnes allerede.</string>
+    <string name="device_info_error">\'%1$s\' har feil eller manglende informasjon</string>
+    <string name="device_missing_name">Enheten trenger ett navn</string>
+    <string name="device_not_found">Fant ikke enheten \'%1$s\'</string>
+    <string name="devices_none">Ingen enheter</string>
+    <string name="pref_theme">Velg Tema</string>
+    <string name="pref_theme_summary">Du må restarte appen før endringene tar effekt.</string>
+    <string name="save">Lagre</string>
+    <string name="shortcut_created">Snarvei laget for \'%1$s\'</string>
+    <!-- Actions -->
+    <string name="action_edit">Endre</string>
+    <string name="action_remove">Fjern</string>
+    <string name="action_settings">Innstillinger</string>
+    <!-- Dialog Strings -->
+    <string name="dialog_host">Host</string>
+    <string name="dialog_mac">MAC Adresse</string>
+    <string name="dialog_name">Navn</string>
+    <string name="dialog_port">Port</string>
+
+</resources>
