@@ -81,7 +81,7 @@ public class DeviceDialog {
         });
 
         if (edit) {
-            builder.setTitle("Edit Device");
+            builder.setTitle(context.getString(R.string.device_edit));
             // Add action button
             builder.setPositiveButton(context.getString(R.string.save), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
@@ -95,7 +95,7 @@ public class DeviceDialog {
             _edit_port.setText(String.valueOf(_device.getPort()));
             _edit_mac.setText(_device.getMac());
         } else {
-            builder.setTitle("New Device");
+            builder.setTitle(context.getString(R.string.device_new));
             // Add action button
             builder.setPositiveButton(context.getString(R.string.add), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
@@ -181,15 +181,15 @@ public class DeviceDialog {
 
             // Validate everything
             if (!ValidateUtils.validateHost(host)) {
-                Toast.makeText(context, "Invalid host", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, context.getString(R.string.invalid_host), Toast.LENGTH_LONG).show();
                 return;
             }
             if (!ValidateUtils.validateMAC(mac)) {
-                Toast.makeText(context, "Invalid mac", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, context.getString(R.string.invalid_mac), Toast.LENGTH_LONG).show();
                 return;
             }
             if (!ValidateUtils.validatePort(port)) {
-                Toast.makeText(context, "Invalid port", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, context.getString(R.string.invalid_port), Toast.LENGTH_LONG).show();
                 return;
             }
 

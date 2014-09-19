@@ -6,11 +6,15 @@
     <string name="appearance">Utseende</string>
     <string name="cancel">Avbryt</string>
     <string name="empty">Tomt</string>
+    <string name="invalid_host">Invalid host</string>
+    <string name="invalid_mac">Invalid mac</string>
+    <string name="invalid_port">Invalid port</string>
     <string name="magic_packet_failed">Klarte ikke å sende Magic Packet til \'%1$s\'</string>
     <string name="magic_packet_sending">Sender Magic Packet til \'%1$s\'</string>
-    <string name="device_exists">Enheten \'%1$s\' finnes allerede.</string>
+    <string name="device_edit">Edit Device</string>
     <string name="device_info_error">\'%1$s\' har feil eller manglende informasjon</string>
     <string name="device_missing_name">Enheten trenger ett navn</string>
+    <string name="device_new">New Device</string>
     <string name="device_not_found">Fant ikke enheten \'%1$s\'</string>
     <string name="devices_none">Ingen enheter</string>
     <string name="pref_theme">Velg Tema</string>

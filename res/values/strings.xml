@@ -6,11 +6,15 @@
     <string name="appearance">Appearance</string>
     <string name="cancel">Cancel</string>
     <string name="empty">Empty</string>
+    <string name="invalid_host">Invalid host</string>
+    <string name="invalid_mac">Invalid mac</string>
+    <string name="invalid_port">Invalid port</string>
     <string name="magic_packet_failed">Failed to send magic packet to \'%1$s\'</string>
     <string name="magic_packet_sending">Sending magic packet to \'%1$s\'</string>
-    <string name="device_exists">Device \'%1$s\' already exists.</string>
+    <string name="device_edit">Edit Device</string>
     <string name="device_info_error">\'%1$s\' has incorrect or missing information</string>
     <string name="device_missing_name">Device needs a name</string>
+    <string name="device_new">New Device</string>
     <string name="device_not_found">Didn\'t find device \'%1$s\'</string>
     <string name="devices_none">No devices</string>
     <string name="pref_theme">Select Theme</string>
@@ -26,6 +30,5 @@
     <string name="dialog_mac">MAC Address</string>
     <string name="dialog_name">Name</string>
     <string name="dialog_port">Port</string>
-    <string name="ZeroZero">00</string>
 
 </resources>
