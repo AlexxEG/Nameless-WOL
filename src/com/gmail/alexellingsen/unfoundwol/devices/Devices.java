@@ -150,7 +150,7 @@ public class Devices {
      *
      * @param context The Context to use.
      */
-    public static void init(Context context) {
+    public static void initialize(Context context) {
         _db = new DatabaseHandler(context);
     }
 

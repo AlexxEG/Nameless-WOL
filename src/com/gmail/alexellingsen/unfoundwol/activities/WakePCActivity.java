@@ -14,7 +14,7 @@ public class WakePCActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Devices.init(this);
+        Devices.initialize(this);
 
         Intent intent = this.getIntent();
 

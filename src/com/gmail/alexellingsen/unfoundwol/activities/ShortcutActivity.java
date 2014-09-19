@@ -24,7 +24,7 @@ public class ShortcutActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shortcut);
 
-        Devices.init(this);
+        Devices.initialize(this);
 
         setupListView();
     }
