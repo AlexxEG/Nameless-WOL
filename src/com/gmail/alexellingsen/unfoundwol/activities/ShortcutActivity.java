@@ -10,15 +10,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.gmail.alexellingsen.unfoundwol.LazyAdapter;
 import com.gmail.alexellingsen.unfoundwol.R;
 import com.gmail.alexellingsen.unfoundwol.Settings;
 import com.gmail.alexellingsen.unfoundwol.devices.Devices;
 
 public class ShortcutActivity extends Activity {
-
-    private Devices devices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +24,7 @@ public class ShortcutActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shortcut);
 
-        devices = new Devices(getApplicationContext());
-        devices.loadDevices();
+        Devices.init(this);
 
         setupListView();
     }
@@ -63,6 +59,6 @@ public class ShortcutActivity extends Activity {
 
         LazyAdapter adapter = new LazyAdapter(this);
         listview.setAdapter(adapter);
-        adapter.addAll(devices.getDevices());
+        adapter.addAll(Devices.getAll());
     }
 }

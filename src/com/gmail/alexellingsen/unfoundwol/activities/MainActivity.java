@@ -24,7 +24,6 @@ import com.gmail.alexellingsen.unfoundwol.dialogs.DeviceDialog;
 @SuppressWarnings("ConstantConditions")
 public class MainActivity extends Activity {
 
-    private Devices devices;
     private LazyAdapter adapter;
 
     @Override
@@ -34,8 +33,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        devices = new Devices(getApplicationContext());
-        devices.loadDevices();
+        Devices.init(this);
 
         setupListView();
     }
@@ -81,12 +79,11 @@ public class MainActivity extends Activity {
 
         switch (item.getItemId()) {
             case R.id.action_edit:
-                DeviceDialog.show(this, devices.get(itemText));
+                DeviceDialog.show(this, Devices.find(itemText));
                 break;
             case R.id.action_remove:
                 adapter.remove(adapter.getItem(info.position));
-                devices.remove(itemText);
-                devices.saveDevices();
+                Devices.delete(Devices.find(itemText));
                 break;
         }
 
@@ -103,30 +100,26 @@ public class MainActivity extends Activity {
         list.setEmptyView(empty);
     }
 
-    public void addDevice(String name, String host, String mac, int port) {
-        Device d = new Device(name, host, mac, port);
+    public void addDevice(String name, String host, int port, String mac) {
+        Device device = new Device(name, host, port, mac);
 
-        devices.put(name, d);
-        devices.saveDevices();
+        // Add device to database & set id from result.
+        device.setID(Devices.add(device));
 
-        adapter.add(d);
+        adapter.add(device);
     }
 
-    public void editDevice(String name, String newName, String host, String mac, int port) {
-        Device d = devices.get(name);
+    public void editDevice(String name, String newName, String host, int port, String mac) {
+        Device device = Devices.find(name);
 
-        d.setName(newName);
-        d.setHost(host);
-        d.setMac(mac);
-        d.setPort(port);
+        device.setName(newName);
+        device.setHost(host);
+        device.setPort(port);
+        device.setMac(mac);
 
-        devices.saveDevices();
+        Devices.update(device);
 
         adapter.notifyDataSetChanged();
-    }
-
-    public boolean containsDevice(String name) {
-        return devices.containsKey(name);
     }
 
     private void setupListView() {
@@ -145,12 +138,11 @@ public class MainActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Context context = getApplicationContext();
                 String item = ((TextView) view.findViewById(R.id.list_item_name)).getText().toString();
+                Device device = Devices.find(item);
 
-                if (devices.containsKey(item)) {
-                    Device d = devices.get(item);
-
-                    if (d.canWake()) {
-                        devices.get(item).wake();
+                if (device != null) {
+                    if (device.canWake()) {
+                        device.wake();
                         Toast.makeText(context, getString(R.string.magic_packet_sending, item), Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(context, getString(R.string.device_info_error, item), Toast.LENGTH_LONG).show();
@@ -163,7 +155,7 @@ public class MainActivity extends Activity {
 
         adapter = new LazyAdapter(this);
         listview.setAdapter(adapter);
-        adapter.addAll(devices.getDevices());
+        adapter.addAll(Devices.getAll());
     }
 
 }

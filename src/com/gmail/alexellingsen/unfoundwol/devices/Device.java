@@ -11,26 +11,27 @@ import java.util.regex.Pattern;
 
 public class Device {
 
-    private String host;
-    private String mac;
-    private String name;
-    private int port;
+    private int _id;
+    private String _host;
+    private String _mac;
+    private String _name;
+    private int _port;
 
-    public Device(String name, String host, String mac, int port) {
-        this.name = name;
-        this.host = host;
-        this.mac = mac;
-        this.port = port;
+    public Device(String name, String host, int port, String mac) {
+        this._name = name;
+        this._host = host;
+        this._mac = mac;
+        this._port = port;
     }
 
     public boolean canWake() {
-        if (host.isEmpty() || mac.isEmpty() || ValidateUtils.validatePort(port))
+        if (_host.isEmpty() || _mac.isEmpty() || ValidateUtils.validatePort(_port))
             return false;
 
         boolean validHost;
 
         try {
-            URI uri = new URI("my://" + host + ":" + port);
+            URI uri = new URI("my://" + _host + ":" + _port);
 
             if (uri.getHost() == null | uri.getPort() == -1) {
                 throw new URISyntaxException(uri.toString(), "URI must have host and port parts.");
@@ -41,23 +42,27 @@ public class Device {
             validHost = false;
         }
 
-        return validHost && ValidateUtils.validateMAC(mac);
+        return validHost && ValidateUtils.validateMAC(_mac);
+    }
+
+    public int getID() {
+        return _id;
     }
 
     public String getHost() {
-        return host;
+        return _host;
     }
 
     public String getMac() {
-        return mac;
+        return _mac;
     }
 
     public String getName() {
-        return name;
+        return _name;
     }
 
     public int getPort() {
-        return this.port;
+        return _port;
     }
 
     public static String[] validateMac(String mac) throws IllegalArgumentException {
@@ -91,24 +96,24 @@ public class Device {
         }
     }
 
-    public String serialize() {
-        return this.name + ";" + this.host + ";" + this.mac + ";" + this.port;
+    public void setID(int id) {
+        _id = id;
     }
 
     public void setHost(String host) {
-        this.host = host;
+        _host = host;
     }
 
     public void setMac(String mac) {
-        this.mac = mac;
+        _mac = mac;
     }
 
     public void setName(String name) {
-        this.name = name;
+        _name = name;
     }
 
     public void setPort(int port) {
-        this.port = port;
+        _port = port;
     }
 
     public boolean wake() {
@@ -119,14 +124,18 @@ public class Device {
         }
     }
 
+    public String toString() {
+        return String.format("Device (ID: %s, Name: %s, Host: %s, Port: %s, Mac: %s)", _id, _name, _host, _port, _mac);
+    }
+
     private class WakeAsyncTask extends AsyncTask<Void, Void, Boolean> {
 
         protected Boolean doInBackground(Void... arg0) {
-            if (mac == null)
+            if (_mac == null)
                 return false;
 
             try {
-                String[] hex = validateMac(mac);
+                String[] hex = validateMac(_mac);
 
                 // Convert to base16 bytes
                 byte[] macBytes = new byte[6];
@@ -147,8 +156,8 @@ public class Device {
                     System.arraycopy(macBytes, 0, bytes, i, macBytes.length);
                 }
 
-                InetAddress address = InetAddress.getByName(host);
-                DatagramPacket packet = new DatagramPacket(bytes, bytes.length, address, port);
+                InetAddress address = InetAddress.getByName(_host);
+                DatagramPacket packet = new DatagramPacket(bytes, bytes.length, address, _port);
                 DatagramSocket socket = new DatagramSocket();
 
                 socket.send(packet);

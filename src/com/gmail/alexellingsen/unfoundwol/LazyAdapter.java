@@ -7,10 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import com.gmail.alexellingsen.unfoundwol.devices.Device;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -43,8 +43,8 @@ public class LazyAdapter extends BaseAdapter {
         this.notifyDataSetChanged();
     }
 
-    public void addAll(Device[] devices) {
-        Collections.addAll(this.data, devices);
+    public void addAll(Collection<Device> devices) {
+        this.data.addAll(devices);
         this.notifyDataSetChanged();
     }
 

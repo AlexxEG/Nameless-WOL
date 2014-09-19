@@ -11,7 +11,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -50,7 +49,7 @@ public class DeviceDialog {
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                Log.d("myTag", "beforeTextChanged: " + s);
+
             }
 
             @Override
@@ -93,7 +92,7 @@ public class DeviceDialog {
 
             _edit_name.setText(_device.getName());
             _edit_host.setText(_device.getHost());
-            _edit_port.setText("" + _device.getPort());
+            _edit_port.setText(String.valueOf(_device.getPort()));
             _edit_mac.setText(_device.getMac());
         } else {
             builder.setTitle("New Device");
@@ -196,16 +195,12 @@ public class DeviceDialog {
 
             MainActivity mainActivity = (MainActivity) context;
 
-            Button btn = (Button) view;
+            String btn = ((Button) view).getText().toString();
 
-            if (btn.getText().equals(context.getString(R.string.add))) {
-                if (!mainActivity.containsDevice(name)) {
-                    mainActivity.addDevice(name, host, mac, port);
-                } else {
-                    Toast.makeText(context, context.getString(R.string.device_exists, name), Toast.LENGTH_SHORT).show();
-                }
-            } else if (btn.getText().equals(context.getString(R.string.save))) {
-                mainActivity.editDevice(this.name, name, host, mac, port);
+            if (btn.equals(context.getString(R.string.add))) {
+                mainActivity.addDevice(name, host, port, mac);
+            } else if (btn.equals(context.getString(R.string.save))) {
+                mainActivity.editDevice(this.name, name, host, port, mac);
             }
 
             dialog.dismiss();

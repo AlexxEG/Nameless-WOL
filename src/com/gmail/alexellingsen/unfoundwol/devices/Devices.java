@@ -1,15 +1,13 @@
 package com.gmail.alexellingsen.unfoundwol.devices;
 
+import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import com.gmail.alexellingsen.unfoundwol.DatabaseHandler;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Map.Entry;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.List;
 
 public class Devices {
 
@@ -26,68 +24,151 @@ public class Devices {
             + KEY_PORT + " INTEGER, "
             + KEY_MAC + " TEXT" + ");";
 
-    private Context context;
-    private DatabaseHandler _db;
-    private SortedMap<String, Device> devices = new TreeMap<String, Device>();
+    private static DatabaseHandler _db;
 
-    public Devices(Context context) {
-        this.context = context;
+    /**
+     * Initializes DatabaseHandler, most be called before using class.
+     *
+     * @param context The Context to use.
+     */
+    public static void init(Context context) {
+        _db = new DatabaseHandler(context);
     }
 
-    public boolean containsKey(String name) {
-        return devices.containsKey(name);
+    public static int add(Device device) {
+        SQLiteDatabase db = _db.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, device.getName());
+        values.put(KEY_HOST, device.getHost());
+        values.put(KEY_PORT, device.getPort());
+        values.put(KEY_MAC, device.getMac());
+
+        int id = (int) db.insert(TABLE_NAME, null, values);
+
+        db.close();
+
+        return id;
     }
 
-    public Device get(String name) {
-        return devices.get(name);
+    public static Device get(int id) {
+        SQLiteDatabase db = _db.getReadableDatabase();
+
+        // Find row by id
+        Cursor cursor = db.query(TABLE_NAME, new String[]{KEY_ID, KEY_NAME, KEY_HOST, KEY_PORT, KEY_MAC},
+                KEY_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        // No device found?
+        if (cursor == null)
+            return null;
+
+        Device device = new Device(
+                cursor.getString(1),
+                cursor.getString(2),
+                cursor.getInt(3),
+                cursor.getString(4)
+        );
+        device.setID(cursor.getInt(0));
+
+        cursor.close();
+        db.close();
+
+        return device;
     }
 
-    public Device[] getDevices() {
-        ArrayList<Device> devices = new ArrayList<Device>();
+    public static List<Device> getAll() {
+        List<Device> devicesList = new ArrayList<Device>();
+        String query = "SELECT * FROM " + TABLE_NAME;
 
-        for (Entry<String, Device> entry : this.devices.entrySet()) {
-            devices.add(entry.getValue());
+        SQLiteDatabase db = _db.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Device device = new Device(
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getInt(3),
+                        cursor.getString(4)
+                );
+                device.setID(cursor.getInt(0));
+
+                devicesList.add(device);
+            } while (cursor.moveToNext());
         }
 
-        return devices.toArray(new Device[devices.size()]);
+        cursor.close();
+        db.close();
+
+        return devicesList;
     }
 
-    public void loadDevices() {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+    public static int getCount() {
+        String query = "SELECT * FROM " + TABLE_NAME;
+        SQLiteDatabase db = _db.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        int count = cursor.getCount();
 
-        for (String device : sharedPref.getStringSet("devices", new HashSet<String>())) {
-            String[] args = device.split(";");
+        cursor.close();
+        db.close();
 
-            String name = args[0];
-            String host = args[1];
-            String mac = args[2];
-            int port = Integer.parseInt(args[3]);
-
-            devices.put(args[0], new Device(name, host, mac, port));
-        }
+        return count;
     }
 
-    public Device put(String name, Device device) {
-        return devices.put(name, device);
+    public static Device find(String name) {
+        SQLiteDatabase db = _db.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME, new String[]{KEY_ID, KEY_NAME, KEY_HOST, KEY_PORT, KEY_MAC},
+                KEY_NAME + " = ?",
+                new String[]{name}, null, null, null, null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        // No device found?
+        if (cursor == null)
+            return null;
+
+        Device device = new Device(
+                cursor.getString(1),
+                cursor.getString(2),
+                cursor.getInt(3),
+                cursor.getString(4)
+        );
+        device.setID(cursor.getInt(0));
+
+        cursor.close();
+        db.close();
+
+        return device;
     }
 
-    public boolean remove(String name) {
-        return !(devices.remove(name) == null);
+    public static int update(Device device) {
+        SQLiteDatabase db = _db.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, device.getName());
+        values.put(KEY_HOST, device.getHost());
+        values.put(KEY_PORT, device.getPort());
+        values.put(KEY_MAC, device.getMac());
+
+        int rows = db.update(TABLE_NAME, values, KEY_ID + " = ?",
+                new String[]{String.valueOf(device.getID())});
+
+        db.close();
+
+        return rows;
     }
 
-    public void saveDevices() {
-        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context)
-                .edit();
-
-        HashSet<String> set = new HashSet<String>();
-
-        for (Entry<String, Device> entry : devices.entrySet()) {
-            set.add(entry.getValue().serialize());
-        }
-
-        editor.putStringSet("devices", set);
-
-        editor.commit();
+    public static void delete(Device device) {
+        SQLiteDatabase db = _db.getWritableDatabase();
+        db.delete(TABLE_NAME, KEY_ID + " = ?",
+                new String[]{String.valueOf(device.getID())});
+        db.close();
     }
 
 }
