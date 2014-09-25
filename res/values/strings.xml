@@ -6,8 +6,8 @@
     <string name="appearance">Appearance</string>
     <string name="cancel">Cancel</string>
     <string name="empty">Empty</string>
-    <string name="invalid_host">Invalid host</string>
-    <string name="invalid_mac">Invalid mac</string>
+    <string name="invalid_host">Invalid host address</string>
+    <string name="invalid_mac">Invalid MAC address</string>
     <string name="invalid_port">Invalid port</string>
     <string name="magic_packet_failed">Failed to send magic packet to \'%1$s\'</string>
     <string name="magic_packet_sending">Sending magic packet to \'%1$s\'</string>
@@ -15,12 +15,13 @@
     <string name="device_info_error">\'%1$s\' has incorrect or missing information</string>
     <string name="device_missing_name">Device needs a name</string>
     <string name="device_new">New Device</string>
-    <string name="device_not_found">Didn\'t find device \'%1$s\'</string>
+    <string name="device_not_found">Didn\'t find device</string>
     <string name="devices_none">No devices</string>
     <string name="pref_theme">Select Theme</string>
     <string name="pref_theme_summary">You must restart the app after changing.</string>
     <string name="save">Save</string>
     <string name="shortcut_created">Shortcut created for \'%1$s\'</string>
+    <string name="shortcut_text">Wake \'%1$s\'</string>
     <!-- Actions -->
     <string name="action_edit">Edit</string>
     <string name="action_remove">Remove</string>

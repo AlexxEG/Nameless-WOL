@@ -1,10 +1,5 @@
 package com.gmail.alexellingsen.unfoundwol.dialogs;
 
-/* ToDo:
- *      - Support paste, automatically fit it in.
- *      - Handle separate MAC EditTexts, automatically move to next when entered 2 chars (TextWatcher class?)
- */
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -81,7 +76,6 @@ public class DeviceDialog {
         });
 
         if (edit) {
-            builder.setTitle(context.getString(R.string.device_edit));
             // Add action button
             builder.setPositiveButton(context.getString(R.string.save), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
@@ -95,7 +89,6 @@ public class DeviceDialog {
             _edit_port.setText(String.valueOf(_device.getPort()));
             _edit_mac.setText(_device.getMac());
         } else {
-            builder.setTitle(context.getString(R.string.device_new));
             // Add action button
             builder.setPositiveButton(context.getString(R.string.add), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
@@ -122,7 +115,7 @@ public class DeviceDialog {
 
             Button theButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
 
-            theButton.setOnClickListener(new CustomListener(alertDialog, context, ""));
+            theButton.setOnClickListener(new CustomListener(alertDialog, context));
             return true;
         } catch (Throwable t) {
             t.printStackTrace();
@@ -146,7 +139,7 @@ public class DeviceDialog {
 
             Button theButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
 
-            theButton.setOnClickListener(new CustomListener(alertDialog, context, _device.getName()));
+            theButton.setOnClickListener(new CustomListener(alertDialog, context));
             return true;
         } catch (Throwable t) {
             t.printStackTrace();
@@ -156,14 +149,12 @@ public class DeviceDialog {
 
     private static class CustomListener implements View.OnClickListener {
 
-        private final Context context;
-        private final Dialog dialog;
-        private final String name;
+        private final Context _context;
+        private final Dialog _dialog;
 
-        public CustomListener(Dialog dialog, Context context, String name) {
-            this.context = context;
-            this.dialog = dialog;
-            this.name = name;
+        public CustomListener(Dialog dialog, Context context) {
+            this._context = context;
+            this._dialog = dialog;
         }
 
         @Override
@@ -171,7 +162,7 @@ public class DeviceDialog {
             String name = _edit_name.getText().toString();
 
             if (name.isEmpty()) {
-                Toast.makeText(context, context.getString(R.string.device_missing_name), Toast.LENGTH_SHORT).show();
+                Toast.makeText(_context, _context.getString(R.string.device_missing_name), Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -181,29 +172,29 @@ public class DeviceDialog {
 
             // Validate everything
             if (!ValidateUtils.validateHost(host)) {
-                Toast.makeText(context, context.getString(R.string.invalid_host), Toast.LENGTH_LONG).show();
+                Toast.makeText(_context, _context.getString(R.string.invalid_host), Toast.LENGTH_LONG).show();
                 return;
             }
             if (!ValidateUtils.validateMAC(mac)) {
-                Toast.makeText(context, context.getString(R.string.invalid_mac), Toast.LENGTH_LONG).show();
+                Toast.makeText(_context, _context.getString(R.string.invalid_mac), Toast.LENGTH_LONG).show();
                 return;
             }
             if (!ValidateUtils.validatePort(port)) {
-                Toast.makeText(context, context.getString(R.string.invalid_port), Toast.LENGTH_LONG).show();
+                Toast.makeText(_context, _context.getString(R.string.invalid_port), Toast.LENGTH_LONG).show();
                 return;
             }
 
-            MainActivity mainActivity = (MainActivity) context;
+            MainActivity mainActivity = (MainActivity) _context;
 
             String btn = ((Button) view).getText().toString();
 
-            if (btn.equals(context.getString(R.string.add))) {
+            if (btn.equals(_context.getString(R.string.add))) {
                 mainActivity.addDevice(name, host, port, mac);
-            } else if (btn.equals(context.getString(R.string.save))) {
-                mainActivity.editDevice(this.name, name, host, port, mac);
+            } else if (btn.equals(_context.getString(R.string.save))) {
+                mainActivity.editDevice(_device.getID(), name, host, port, mac);
             }
 
-            dialog.dismiss();
+            _dialog.dismiss();
         }
     }
 }

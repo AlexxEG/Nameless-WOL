@@ -8,11 +8,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.gmail.alexellingsen.unfoundwol.LazyAdapter;
 import com.gmail.alexellingsen.unfoundwol.R;
+import com.gmail.alexellingsen.unfoundwol.devices.Device;
 import com.gmail.alexellingsen.unfoundwol.devices.Devices;
+import com.gmail.alexellingsen.unfoundwol.utils.Common;
 
 public class ShortcutActivity extends Activity {
 
@@ -29,33 +30,33 @@ public class ShortcutActivity extends Activity {
     void setupListView() {
         ListView listview = (ListView) findViewById(R.id.listview);
 
+        final LazyAdapter adapter = new LazyAdapter(this);
+        listview.setAdapter(adapter);
+        adapter.addAll(Devices.getAll());
+
         listview.setOnItemClickListener(new OnItemClickListener() {
 
             @SuppressWarnings("ConstantConditions")
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = ((TextView) view.findViewById(R.id.list_item_name)).getText().toString();
+                Device device = adapter.getItem(position);
 
                 final Intent shortcutIntent = new Intent(ShortcutActivity.this, com.gmail.alexellingsen.unfoundwol.activities.WakePCActivity.class);
                 final ShortcutIconResource iconResource = Intent.ShortcutIconResource.fromContext(ShortcutActivity.this, R.drawable.ic_launcher);
                 final Intent intent = new Intent();
 
-                shortcutIntent.putExtra("wake_pc", item);
+                shortcutIntent.putExtra(Common.INTENT_EXTRA_DEVICE_ID, device.getID());
 
                 intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
-                intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "Wake '" + item + "'");
+                intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, getString(R.string.shortcut_text, device.getName()));
                 intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, iconResource);
 
                 setResult(RESULT_OK, intent);
 
-                Toast.makeText(ShortcutActivity.this, getString(R.string.shortcut_created, item), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ShortcutActivity.this, getString(R.string.shortcut_created, device.getName()), Toast.LENGTH_SHORT).show();
 
                 finish();
             }
         });
-
-        LazyAdapter adapter = new LazyAdapter(this);
-        listview.setAdapter(adapter);
-        adapter.addAll(Devices.getAll());
     }
 }

@@ -72,15 +72,15 @@ public class MainActivity extends Activity {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-        String itemText = adapter.getItem(info.position).getName();
+        Device device = adapter.getItem(info.position);
 
         switch (item.getItemId()) {
             case R.id.action_edit:
-                DeviceDialog.show(this, Devices.find(itemText));
+                DeviceDialog.show(this, device);
                 break;
             case R.id.action_remove:
                 adapter.remove(adapter.getItem(info.position));
-                Devices.delete(Devices.find(itemText));
+                Devices.delete(device);
                 break;
         }
 
@@ -97,6 +97,16 @@ public class MainActivity extends Activity {
         list.setEmptyView(empty);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
     public void addDevice(String name, String host, int port, String mac) {
         Device device = new Device(name, host, port, mac);
 
@@ -106,10 +116,10 @@ public class MainActivity extends Activity {
         adapter.add(device);
     }
 
-    public void editDevice(String name, String newName, String host, int port, String mac) {
-        Device device = Devices.find(name);
+    public void editDevice(int id, String name, String host, int port, String mac) {
+        Device device = adapter.find(id);
 
-        device.setName(newName);
+        device.setName(name);
         device.setHost(host);
         device.setPort(port);
         device.setMac(mac);
@@ -135,7 +145,7 @@ public class MainActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Context context = getApplicationContext();
                 String item = ((TextView) view.findViewById(R.id.list_item_name)).getText().toString();
-                Device device = Devices.find(item);
+                Device device = adapter.getItem(position);
 
                 if (device != null) {
                     if (device.canWake()) {
@@ -145,7 +155,7 @@ public class MainActivity extends Activity {
                         Toast.makeText(context, getString(R.string.device_info_error, item), Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    Toast.makeText(context, getString(R.string.device_not_found, item), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, getString(R.string.device_not_found), Toast.LENGTH_LONG).show();
                 }
             }
         });

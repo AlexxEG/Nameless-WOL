@@ -49,34 +49,6 @@ public class Devices {
         db.close();
     }
 
-    public static Device find(String name) {
-        SQLiteDatabase db = _db.getReadableDatabase();
-
-        Cursor cursor = db.query(TABLE_NAME, new String[]{KEY_ID, KEY_NAME, KEY_HOST, KEY_PORT, KEY_MAC},
-                KEY_NAME + " = ?",
-                new String[]{name}, null, null, null, null);
-
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        // No device found?
-        if (cursor == null)
-            return null;
-
-        Device device = new Device(
-                cursor.getString(1),
-                cursor.getString(2),
-                cursor.getInt(3),
-                cursor.getString(4)
-        );
-        device.setID(cursor.getInt(0));
-
-        cursor.close();
-        db.close();
-
-        return device;
-    }
-
     public static Device get(int id) {
         SQLiteDatabase db = _db.getReadableDatabase();
 

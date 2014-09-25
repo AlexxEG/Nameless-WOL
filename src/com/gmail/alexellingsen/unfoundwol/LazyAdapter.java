@@ -48,6 +48,14 @@ public class LazyAdapter extends BaseAdapter {
         this.notifyDataSetChanged();
     }
 
+    public Device find(int id) {
+        for (Device device : data) {
+            if (device.getID() == id)
+                return device;
+        }
+        return null;
+    }
+
     public int getCount() {
         return data.size();
     }
