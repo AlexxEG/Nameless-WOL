@@ -39,6 +39,7 @@
         </activity>
         <activity
             android:name="com.gmail.alexellingsen.unfoundwol.activities.WakePCActivity"
+            android:excludeFromRecents="true"
             android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
                 <action android:name="com.gmail.alexellingsen.unfoundwol.WAKE_PC" />
