@@ -2,8 +2,8 @@ package com.gmail.alexellingsen.unfoundwol.devices;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import com.gmail.alexellingsen.unfoundwol.utils.Common;
 import com.gmail.alexellingsen.unfoundwol.ValidateUtils;
+import com.gmail.alexellingsen.unfoundwol.utils.Common;
 
 import java.net.*;
 import java.util.regex.Matcher;
@@ -24,6 +24,11 @@ public class Device {
         this._port = port;
     }
 
+    /**
+     * Validates host address, MAC address & port.
+     *
+     * @return True if everything was validated, false otherwise.
+     */
     public boolean canWake() {
         if (_host.isEmpty() || _mac.isEmpty() || !ValidateUtils.validatePort(_port))
             return false;
@@ -33,7 +38,7 @@ public class Device {
         try {
             URI uri = new URI("my://" + _host + ":" + _port);
 
-            if (uri.getHost() == null | uri.getPort() == -1) {
+            if (uri.getHost() == null || uri.getPort() == -1) {
                 throw new URISyntaxException(uri.toString(), "URI must have host and port parts.");
             }
 
