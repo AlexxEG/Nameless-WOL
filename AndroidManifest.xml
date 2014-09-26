@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme.Light.DarkActionBar">
 
         <activity
-            android:name="com.gmail.alexellingsen.namelesswol.activities.MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.gmail.alexellingsen.namelesswol.activities.PrefsActivity" />
+        <activity android:name=".activities.PrefsActivity" />
 
         <activity
             android:name=".activities.WakeDeviceActivity"
@@ -44,7 +44,7 @@
         </activity>
 
         <!-- Tasker fire -->
-        <receiver android:name="com.gmail.alexellingsen.namelesswol.tasker.FireReceiver">
+        <receiver android:name=".tasker.FireReceiver">
             <intent-filter>
                 <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING" />
             </intent-filter>
