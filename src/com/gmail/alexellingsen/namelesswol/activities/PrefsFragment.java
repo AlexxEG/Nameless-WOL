@@ -1,8 +1,8 @@
-package com.gmail.alexellingsen.unfoundwol.activities;
+package com.gmail.alexellingsen.namelesswol.activities;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
-import com.gmail.alexellingsen.unfoundwol.R;
+import com.gmail.alexellingsen.namelesswol.R;
 
 public class PrefsFragment extends PreferenceFragment {
 

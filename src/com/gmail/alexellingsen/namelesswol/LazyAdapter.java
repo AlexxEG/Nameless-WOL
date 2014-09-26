@@ -1,4 +1,4 @@
-package com.gmail.alexellingsen.unfoundwol;
+package com.gmail.alexellingsen.namelesswol;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import com.gmail.alexellingsen.unfoundwol.devices.Device;
+import com.gmail.alexellingsen.namelesswol.devices.Device;
 
 import java.util.ArrayList;
 import java.util.Collection;

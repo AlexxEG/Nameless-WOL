@@ -1,14 +1,14 @@
-package com.gmail.alexellingsen.unfoundwol;
+package com.gmail.alexellingsen.namelesswol;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import com.gmail.alexellingsen.unfoundwol.devices.Devices;
+import com.gmail.alexellingsen.namelesswol.devices.Devices;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "unfoundWOL";
+    private static final String DATABASE_NAME = "NamelessWOL";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

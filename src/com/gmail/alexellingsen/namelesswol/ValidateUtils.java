@@ -1,6 +1,6 @@
-package com.gmail.alexellingsen.unfoundwol;
+package com.gmail.alexellingsen.namelesswol;
 
-import com.gmail.alexellingsen.unfoundwol.devices.Device;
+import com.gmail.alexellingsen.namelesswol.devices.Device;
 
 import java.net.InetAddress;
 

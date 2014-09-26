@@ -1,9 +1,9 @@
-package com.gmail.alexellingsen.unfoundwol.activities;
+package com.gmail.alexellingsen.namelesswol.activities;
 
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-import com.gmail.alexellingsen.unfoundwol.R;
+import com.gmail.alexellingsen.namelesswol.R;
 
 public class PrefsActivity extends PreferenceActivity {
 

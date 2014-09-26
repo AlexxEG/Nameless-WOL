@@ -1,9 +1,9 @@
-package com.gmail.alexellingsen.unfoundwol.devices;
+package com.gmail.alexellingsen.namelesswol.devices;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import com.gmail.alexellingsen.unfoundwol.ValidateUtils;
-import com.gmail.alexellingsen.unfoundwol.utils.Common;
+import com.gmail.alexellingsen.namelesswol.ValidateUtils;
+import com.gmail.alexellingsen.namelesswol.utils.Common;
 
 import java.net.*;
 import java.util.regex.Matcher;

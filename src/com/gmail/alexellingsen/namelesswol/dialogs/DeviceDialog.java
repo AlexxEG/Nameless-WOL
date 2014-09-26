@@ -1,4 +1,4 @@
-package com.gmail.alexellingsen.unfoundwol.dialogs;
+package com.gmail.alexellingsen.namelesswol.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -11,10 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import com.gmail.alexellingsen.unfoundwol.R;
-import com.gmail.alexellingsen.unfoundwol.ValidateUtils;
-import com.gmail.alexellingsen.unfoundwol.activities.MainActivity;
-import com.gmail.alexellingsen.unfoundwol.devices.Device;
+import com.gmail.alexellingsen.namelesswol.R;
+import com.gmail.alexellingsen.namelesswol.ValidateUtils;
+import com.gmail.alexellingsen.namelesswol.activities.MainActivity;
+import com.gmail.alexellingsen.namelesswol.devices.Device;
 
 public class DeviceDialog {
 

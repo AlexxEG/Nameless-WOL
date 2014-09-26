@@ -1,10 +1,10 @@
-package com.gmail.alexellingsen.unfoundwol.devices;
+package com.gmail.alexellingsen.namelesswol.devices;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import com.gmail.alexellingsen.unfoundwol.DatabaseHandler;
+import com.gmail.alexellingsen.namelesswol.DatabaseHandler;
 
 import java.util.ArrayList;
 import java.util.List;

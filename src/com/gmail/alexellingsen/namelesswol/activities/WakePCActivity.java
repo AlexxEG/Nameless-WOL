@@ -1,13 +1,13 @@
-package com.gmail.alexellingsen.unfoundwol.activities;
+package com.gmail.alexellingsen.namelesswol.activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
-import com.gmail.alexellingsen.unfoundwol.R;
-import com.gmail.alexellingsen.unfoundwol.devices.Device;
-import com.gmail.alexellingsen.unfoundwol.devices.Devices;
-import com.gmail.alexellingsen.unfoundwol.utils.Common;
+import com.gmail.alexellingsen.namelesswol.R;
+import com.gmail.alexellingsen.namelesswol.devices.Device;
+import com.gmail.alexellingsen.namelesswol.devices.Devices;
+import com.gmail.alexellingsen.namelesswol.utils.Common;
 
 public class WakePCActivity extends Activity {
 
