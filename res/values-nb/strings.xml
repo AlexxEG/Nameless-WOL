@@ -22,6 +22,7 @@
     <string name="save">Lagre</string>
     <string name="shortcut_created">Snarvei laget for \'%1$s\'</string>
     <string name="shortcut_text">Vekk \'%1$s\'</string>
+    <string name="shortcut_widget_name">Nameless WOL Snarvei</string>
     <!-- Actions -->
     <string name="action_edit">Endre</string>
     <string name="action_remove">Fjern</string>

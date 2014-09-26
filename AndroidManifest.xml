@@ -30,7 +30,7 @@
 
         <activity
             android:name="com.gmail.alexellingsen.namelesswol.activities.ShortcutActivity"
-            android:label="WOL Shortcut"
+            android:label="@string/shortcut_widget_name"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified"
             android:windowSoftInputMode="stateHidden">
