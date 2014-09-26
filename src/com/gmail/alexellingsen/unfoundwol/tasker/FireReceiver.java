@@ -31,8 +31,11 @@ public class FireReceiver extends BroadcastReceiver {
             String name = device.getName();
 
             if (device.canWake()) {
-                device.wake();
-                Toast.makeText(context, getString(R.string.magic_packet_sending, name), Toast.LENGTH_LONG).show();
+                if (device.wake()) {
+                    Toast.makeText(context, getString(R.string.magic_packet_sending, name), Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(context, getString(R.string.magic_packet_failed, name), Toast.LENGTH_LONG).show();
+                }
             } else {
                 Toast.makeText(context, getString(R.string.device_info_error, name), Toast.LENGTH_LONG).show();
             }

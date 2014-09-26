@@ -15,7 +15,7 @@
     <string name="device_info_error">\'%1$s\' has incorrect or missing information</string>
     <string name="device_missing_name">Device needs a name</string>
     <string name="device_new">New Device</string>
-    <string name="device_not_found">Didn\'t find device</string>
+    <string name="device_not_found">Couldn't find device</string>
     <string name="devices_none">No devices</string>
     <string name="pref_theme">Select Theme</string>
     <string name="pref_theme_summary">You must restart the app after changing.</string>
