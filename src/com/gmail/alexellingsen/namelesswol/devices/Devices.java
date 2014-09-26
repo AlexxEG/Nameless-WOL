@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import com.gmail.alexellingsen.namelesswol.DatabaseHandler;
+import com.gmail.alexellingsen.namelesswol.utils.DatabaseHandler;
 
 import java.util.ArrayList;
 import java.util.List;

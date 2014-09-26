@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.gmail.alexellingsen.namelesswol.R;
-import com.gmail.alexellingsen.namelesswol.ValidateUtils;
+import com.gmail.alexellingsen.namelesswol.utils.ValidateUtils;
 import com.gmail.alexellingsen.namelesswol.activities.MainActivity;
 import com.gmail.alexellingsen.namelesswol.devices.Device;
 

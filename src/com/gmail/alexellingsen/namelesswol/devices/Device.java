@@ -2,7 +2,7 @@ package com.gmail.alexellingsen.namelesswol.devices;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import com.gmail.alexellingsen.namelesswol.ValidateUtils;
+import com.gmail.alexellingsen.namelesswol.utils.ValidateUtils;
 import com.gmail.alexellingsen.namelesswol.utils.Common;
 
 import java.net.*;

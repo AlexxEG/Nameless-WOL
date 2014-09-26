@@ -1,4 +1,4 @@
-package com.gmail.alexellingsen.namelesswol;
+package com.gmail.alexellingsen.namelesswol.utils;
 
 import com.gmail.alexellingsen.namelesswol.devices.Device;
 
