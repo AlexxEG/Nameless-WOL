@@ -1,9 +1,9 @@
 package com.gmail.alexellingsen.namelesswol.activities;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -19,6 +19,7 @@ import com.gmail.alexellingsen.namelesswol.R;
 import com.gmail.alexellingsen.namelesswol.devices.Device;
 import com.gmail.alexellingsen.namelesswol.devices.Devices;
 import com.gmail.alexellingsen.namelesswol.dialogs.DeviceDialog;
+import com.gmail.alexellingsen.namelesswol.utils.Common;
 
 @SuppressWarnings("ConstantConditions")
 public class MainActivity extends Activity {
@@ -26,13 +27,23 @@ public class MainActivity extends Activity {
     private LazyAdapter adapter;
 
     @Override
+    public void onBackPressed() {
+        if (getIntent().getAction().equals(Common.TASKER_ACTION_EDIT)) {
+            this.setResult(RESULT_CANCELED);
+        }
+        super.onBackPressed();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        this.setContentView(R.layout.activity_main);
 
+        // Initialize SQLite database
         Devices.initialize(this);
 
-        setupListView();
+        // Setup main ListView
+        this.setupListView();
     }
 
     @Override
@@ -62,9 +73,17 @@ public class MainActivity extends Activity {
         if (v.getId() == R.id.listview) {
             AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
 
+            // Set header title to selected device
             menu.setHeaderTitle(adapter.getItem(info.position).getName());
 
+            // Inflate context menu
             getMenuInflater().inflate(R.menu.context_menu, menu);
+
+            // Show 'Wake' in scenarios where tapping the list item selects it instead of waking it
+            MenuItem sendItem = menu.findItem(R.id.action_wake);
+            boolean enableSendItem = !getIntent().getAction().equals(Intent.ACTION_MAIN);
+
+            sendItem.setEnabled(enableSendItem).setVisible(enableSendItem);
         }
     }
 
@@ -75,6 +94,9 @@ public class MainActivity extends Activity {
         Device device = adapter.getItem(info.position);
 
         switch (item.getItemId()) {
+            case R.id.action_wake:
+                this.wakeDevice(device);
+                break;
             case R.id.action_edit:
                 DeviceDialog.show(this, device);
                 break;
@@ -139,30 +161,90 @@ public class MainActivity extends Activity {
         emptyView.setText(getString(R.string.devices_none));
 
         listview.setEmptyView(emptyView);
-        listview.setOnItemClickListener(new OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Context context = getApplicationContext();
-                String item = ((TextView) view.findViewById(R.id.list_item_name)).getText().toString();
-                Device device = adapter.getItem(position);
-
-                if (device != null) {
-                    if (device.canWake()) {
-                        device.wake();
-                        Toast.makeText(context, getString(R.string.magic_packet_sending, item), Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(context, getString(R.string.device_info_error, item), Toast.LENGTH_LONG).show();
-                    }
-                } else {
-                    Toast.makeText(context, getString(R.string.device_not_found), Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+        listview.setOnItemClickListener(getOnItemClickListener());
 
         adapter = new LazyAdapter(this);
         listview.setAdapter(adapter);
         adapter.addAll(Devices.getAll());
     }
 
+    public void wakeDevice(Device device) {
+        String name = device.getName();
+
+        if (device.canWake()) {
+            if (device.wake()) {
+                Toast.makeText(this, getString(R.string.magic_packet_sending, name), Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, getString(R.string.magic_packet_failed, name), Toast.LENGTH_LONG).show();
+            }
+        } else {
+            Toast.makeText(this, getString(R.string.device_info_error, name), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private OnItemClickListener getOnItemClickListener() {
+        if (getIntent().getAction().equals(Intent.ACTION_MAIN)) {
+            return new MainItemClickListener();
+        } else if (getIntent().getAction().equals(Intent.ACTION_CREATE_SHORTCUT)) {
+            return new ShortcutItemClickListener();
+        } else if (getIntent().getAction().equals(Common.TASKER_ACTION_EDIT)) {
+            return new TaskerItemClickListener();
+        } else {
+            return null;
+        }
+    }
+
+    private class MainItemClickListener implements OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Device device = adapter.getItem(position);
+
+            MainActivity.this.wakeDevice(device);
+        }
+    }
+
+    private class ShortcutItemClickListener implements OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Device device = adapter.getItem(position);
+
+            final Intent shortcutIntent = new Intent(MainActivity.this, WakeDeviceActivity.class);
+            final Intent.ShortcutIconResource iconResource = Intent.ShortcutIconResource.fromContext(MainActivity.this, R.drawable.ic_launcher);
+            final Intent intent = new Intent();
+
+            shortcutIntent.putExtra(Common.INTENT_EXTRA_DEVICE_ID, device.getID());
+
+            intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+            intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, getString(R.string.shortcut_text, device.getName()));
+            intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, iconResource);
+
+            setResult(RESULT_OK, intent);
+
+            Toast.makeText(MainActivity.this, getString(R.string.shortcut_created, device.getName()), Toast.LENGTH_SHORT).show();
+
+            finish();
+        }
+    }
+
+    private class TaskerItemClickListener implements OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Device device = adapter.getItem(position);
+            Bundle extra = new Bundle();
+
+            extra.putInt(Common.INTENT_EXTRA_DEVICE_ID, device.getID());
+
+            Intent resultIntent = new Intent();
+
+            resultIntent.putExtra(Common.TASKER_EXTRA_BUNDLE, extra);
+            // Set text shown in Tasker.
+            resultIntent.putExtra(Common.TASKER_EXTRA_STRING_BLURB, getString(R.string.shortcut_text, device.getName()));
+
+            setResult(RESULT_OK, resultIntent);
+            finish();
+        }
+    }
 }

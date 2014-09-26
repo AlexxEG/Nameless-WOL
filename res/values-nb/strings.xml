@@ -27,6 +27,7 @@
     <string name="action_edit">Endre</string>
     <string name="action_remove">Fjern</string>
     <string name="action_settings">Innstillinger</string>
+    <string name="action_wake">Vekk</string>
     <!-- Dialog Strings -->
     <string name="dialog_host">Host</string>
     <string name="dialog_mac">MAC Adresse</string>
