@@ -13,6 +13,8 @@
     <style name="AppTheme.Light.DarkActionBar" parent="android:Theme.Holo.Light.DarkActionBar">
         <item name="ic_action_settings">@drawable/ic_action_settings</item>
         <item name="ic_action_content_new">@drawable/ic_action_content_new</item>
+
+        <item name="android:icon">@android:color/transparent</item>
     </style>
 
 </resources>
