@@ -6,7 +6,6 @@ import java.net.InetAddress;
 
 public class ValidateUtils {
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     public static boolean validateHost(String host) {
         try {
             InetAddress.getByName(host);
