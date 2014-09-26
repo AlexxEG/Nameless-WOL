@@ -41,7 +41,7 @@ public class ShortcutActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Device device = adapter.getItem(position);
 
-                final Intent shortcutIntent = new Intent(ShortcutActivity.this, com.gmail.alexellingsen.namelesswol.activities.WakePCActivity.class);
+                final Intent shortcutIntent = new Intent(ShortcutActivity.this, WakeDeviceActivity.class);
                 final ShortcutIconResource iconResource = Intent.ShortcutIconResource.fromContext(ShortcutActivity.this, R.drawable.ic_launcher);
                 final Intent intent = new Intent();
 

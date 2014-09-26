@@ -9,7 +9,7 @@ import com.gmail.alexellingsen.namelesswol.devices.Device;
 import com.gmail.alexellingsen.namelesswol.devices.Devices;
 import com.gmail.alexellingsen.namelesswol.utils.Common;
 
-public class WakePCActivity extends Activity {
+public class WakeDeviceActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

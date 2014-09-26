@@ -42,7 +42,7 @@
         </activity>
 
         <activity
-            android:name="com.gmail.alexellingsen.namelesswol.activities.WakePCActivity"
+            android:name=".activities.WakeDeviceActivity"
             android:excludeFromRecents="true"
             android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
