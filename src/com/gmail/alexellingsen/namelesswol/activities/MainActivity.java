@@ -150,23 +150,6 @@ public class MainActivity extends Activity {
         adapter.notifyDataSetChanged();
     }
 
-    private void setupListView() {
-        ListView listview = (ListView) findViewById(R.id.listview);
-
-        registerForContextMenu(listview);
-
-        TextView emptyView = new TextView(this);
-
-        emptyView.setText(getString(R.string.devices_none));
-
-        listview.setEmptyView(emptyView);
-        listview.setOnItemClickListener(getOnItemClickListener());
-
-        adapter = new LazyAdapter(this);
-        listview.setAdapter(adapter);
-        adapter.addAll(Devices.getAll());
-    }
-
     public void wakeDevice(Device device) {
         String name = device.getName();
 
@@ -191,6 +174,23 @@ public class MainActivity extends Activity {
         } else {
             return null;
         }
+    }
+
+    private void setupListView() {
+        ListView listview = (ListView) findViewById(R.id.listview);
+
+        registerForContextMenu(listview);
+
+        TextView emptyView = new TextView(this);
+
+        emptyView.setText(getString(R.string.devices_none));
+
+        listview.setEmptyView(emptyView);
+        listview.setOnItemClickListener(getOnItemClickListener());
+
+        adapter = new LazyAdapter(this);
+        listview.setAdapter(adapter);
+        adapter.addAll(Devices.getAll());
     }
 
     private class MainItemClickListener implements OnItemClickListener {
