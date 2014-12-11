@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Nameless WOL.iml" filepath="$PROJECT_DIR$/.idea/Nameless WOL.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Nameless Wake-on-Lan.iml" filepath="$PROJECT_DIR$/Nameless Wake-on-Lan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Nameless_WOL/Nameless_WOL.iml" filepath="$PROJECT_DIR$/Nameless_WOL/Nameless_WOL.iml" />
     </modules>
   </component>
 </project>

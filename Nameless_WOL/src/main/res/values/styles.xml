@@ -1,0 +1,25 @@
+<resources>
+
+    <style name="AppTheme.Light.DarkActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/primary_blue</item>
+        <item name="colorPrimaryDark">@color/primary_blue_dark</item>
+
+        <item name="android:icon">@android:color/transparent</item>
+    </style>
+
+    <style name="AppTheme.EditDeviceActivity" parent="AppTheme.Light.DarkActionBar" />
+
+    <style name="AppTheme.Preferences" parent="AppTheme.Light.DarkActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+
+        <item name="toolbarStyle">@style/Widget.Toolbar</item>
+    </style>
+
+    <style name="Widget.Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">@color/primary_blue</item>
+        <item name="android:navigationIcon">?attr/homeAsUpIndicator</item>
+        <item name="navigationIcon">?attr/homeAsUpIndicator</item>
+    </style>
+
+</resources>

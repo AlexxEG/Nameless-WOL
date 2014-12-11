@@ -1,0 +1,6 @@
+<resources>
+
+    <dimen name="activity_padding">5dip</dimen>
+    <dimen name="list_item_device_padding">11dip</dimen>
+
+</resources>
